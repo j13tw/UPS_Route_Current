@@ -58,5 +58,5 @@ void loop()
   Serial.print(OUT_V110_D);
   Serial.print(", \"OUT_V110_E\" : ");
   Serial.print(OUT_V110_E);
-  Serial.print("}\n");
+  Serial.print("}");
 }

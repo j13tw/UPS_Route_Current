@@ -8,16 +8,16 @@ from serial import SerialException
 import paho.mqtt.client as mqtt
 
 # MQTT setup data
-MQTT_SERVER = "127.0.0.1"
+MQTT_SERVER = "10.20.0.19"
 MQTT_PORT = 1883
-MQTT_TOPIC = "Power_Monitor_A"
+MQTT_TOPIC = "cabinet_A"
 
 power = serial.Serial()
 
 def arduino_connect():
     global power
     try:
-        power = serial.Serial("COM8", 9600, timeout=1)
+        power = serial.Serial("COM9", 9600, timeout=1)
         time.sleep(2.5)
     except:
         print("arduino plugin error")
