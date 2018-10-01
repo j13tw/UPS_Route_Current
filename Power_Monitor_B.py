@@ -15,13 +15,26 @@ MQTT_TOPIC = "cabinet_A"
 power = serial.Serial()
 
 def arduino_connect():
-    global power
-    try:
-        power = serial.Serial("COM10", 9600, timeout=1)
+   global power
+	power_tty = ""
+	for usb_id in range(1, 10):
+		try:
+			usb_info = usb_roots()[1][1][usb_id]
+		except:
+			usb_info = " "
+		if (usb_info != " "):
+			if (usb_info.idVendor == "067b" and usb_info.idProduct == "2303"):
+				power_tty = usb_info.tty
+				print("power_tty -->" + power_tty)
+			else:
+                print("arduino plugin error")
+		if (power_tty != ""):
+			break
+	try:
+		power = serial.Serial('/dev/' + power_tty, 9600, timeout=1)
         time.sleep(2.5)
-    except:
-        print("arduino plugin error")
-    time.sleep(1)
+	except:
+		power = serial.Serial()
 
 while(1):
     if(power.is_open):
