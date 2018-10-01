@@ -6,6 +6,8 @@ import json
 import datetime
 from serial import SerialException
 import paho.mqtt.client as mqtt
+# usbid version only for 1.0.3
+from usbid.device import usb_roots
 
 # MQTT setup data
 MQTT_SERVER = "10.20.0.19"
