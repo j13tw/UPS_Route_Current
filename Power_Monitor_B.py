@@ -29,7 +29,7 @@ def arduino_connect():
 			else:
 				print("arduino plugin error")
 		if (power_tty != ""):
-			break
+			break            
 	try:
 		power = serial.Serial('/dev/' + power_tty, 9600, timeout=1)
 		time.sleep(2.5)

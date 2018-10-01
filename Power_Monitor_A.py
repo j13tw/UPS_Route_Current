@@ -26,16 +26,16 @@ def arduino_connect():
 			if (usb_info.idVendor == "067b" and usb_info.idProduct == "2303"):
 				power_tty = usb_info.tty
 				print("power_tty -->" + power_tty)
+				try:
+					power = serial.Serial('/dev/' + power_tty, 9600, timeout=1)
+					time.sleep(2.5)
+				except:
+					power = serial.Serial()
+					time.sleep(1)
 			else:
 				print("arduino plugin error")
 		if (power_tty != ""):
 			break
-	try:
-		power = serial.Serial('/dev/' + power_tty, 9600, timeout=1)
-		time.sleep(2.5)
-	except:
-		power = serial.Serial()
-		time.sleep(1)
 
 while(1):
 	if(power.is_open):
