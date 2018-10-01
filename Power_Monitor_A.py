@@ -15,9 +15,9 @@ MQTT_TOPIC = "cabinet_A"
 power = serial.Serial()
 
 def arduino_connect():
-   global power
-	power_tty = ""
-	for usb_id in range(1, 10):
+    global power
+    power_tty = ""
+    for usb_id in range(1, 10):
 		try:
 			usb_info = usb_roots()[1][1][usb_id]
 		except:
@@ -32,26 +32,27 @@ def arduino_connect():
 			break
 	try:
 		power = serial.Serial('/dev/' + power_tty, 9600, timeout=1)
-        time.sleep(2.5)
+		time.sleep(2.5)
 	except:
 		power = serial.Serial()
+		time.sleep(1)
 
 while(1):
-    if(power.is_open):
-        response = power.readline()
-        response = response.decode('ascii')
-        print(response)
-        if (response != ""):
-            print('------------------------------------------------------')
-            try:
-                # MQTT connection
-                mqtt_conn = mqtt.Client()
-                mqtt_conn.connect(MQTT_SERVER, MQTT_PORT)
-                mqtt_conn.publish(MQTT_TOPIC, response)
-                now = datetime.datetime.now()
-                print('MQTT To Server OK ! -->' , now)
-            except:
-                print('MQTT To Server Error !')
-            print('------------------------------------------------------')
-    else:
-        arduino_connect()
+	if(power.is_open):
+		response = power.readline()
+		response = response.decode('ascii')
+		print(response)
+		if (response != ""):
+			print('------------------------------------------------------')
+			try:
+				# MQTT connection
+				mqtt_conn = mqtt.Client()
+				mqtt_conn.connect(MQTT_SERVER, MQTT_PORT)
+				mqtt_conn.publish(MQTT_TOPIC, response)
+				now = datetime.datetime.now()
+				print('MQTT To Server OK ! -->' , now)
+			except:
+				print('MQTT To Server Error !')
+			print('------------------------------------------------------')
+	else:
+		arduino_connect()
