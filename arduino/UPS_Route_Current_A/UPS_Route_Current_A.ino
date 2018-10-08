@@ -43,7 +43,8 @@ void loop()
   
   // print out the all current value
   Serial.print("{");
-  Serial.print("\"IN_V110_A\" : ");
+  Serial.print("\"DEVICE\" : \"UPS_A\"");
+  Serial.print(", \"IN_V110_A\" : ");
   Serial.print(IN_V110_A);
   Serial.print(", \"IN_V110_B\" : ");
   Serial.print(IN_V110_B);
