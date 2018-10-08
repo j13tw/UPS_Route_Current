@@ -57,4 +57,10 @@ while(1):
 				print('MQTT To Server Error !')
 			print('------------------------------------------------------')
 	else:
-		arduino_connect()
+#		arduino_connect()
+		try:
+			power = serial.Serial('/dev/ttyUSB1', 9600, timeout=1)
+			time.sleep(2.5)
+		except:
+			power = serial.Serial()
+			time.sleep(1)
