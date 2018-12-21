@@ -8,7 +8,7 @@ from serial import SerialException
 import paho.mqtt.client as mqtt
 
 # MQTT setup data
-MQTT_SERVER = "127.0.0.1"
+MQTT_SERVER = "127.0.0.1"#"10.20.0.19"
 MQTT_PORT = 1883
 MQTT_TOPIC = "cabinet_A"
 
@@ -28,8 +28,8 @@ while(1):
 			OUT_V110_C = data['OUT_V110_C']
 			OUT_V110_D = data['OUT_V110_D']
 			OUT_V110_E = data['OUT_V110_E']
-			data['prevtime'] = time.strftime("%b %d %Y %X");
-			datatime = data['prevtime']
+			data['date'] = time.strftime("%b %d %Y %X");
+			date = data['date']
 			print(data)
 #			print(Temperature, type(Temperature), Humidity, type(Humidity))
 			send_status = 1
@@ -41,7 +41,7 @@ while(1):
 				# MQTT connection
 				mqtt_conn = mqtt.Client()
 				mqtt_conn.connect(MQTT_SERVER, MQTT_PORT)
-				response = json.dumps(str(response))
+				response = json.dumps(data)
 				mqtt_conn.publish(MQTT_TOPIC, response)
 				now = datetime.datetime.now()
 				print('MQTT To Server OK ! -->' , now)
@@ -55,6 +55,3 @@ while(1):
 		except:
 			power = serial.Serial()
 			time.sleep(1)
-
-
-			
